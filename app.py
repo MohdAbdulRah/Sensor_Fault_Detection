@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return "<h1>home</h1>"
+    return "<h1>home</h1> <a href='/train'>Train</a> <br> <a href='/predict'>Predict</a>"
 
 
 @app.route("/train")
@@ -19,7 +19,7 @@ def train_route():
         train_pipeline = TraininingPipeline()
         train_pipeline.run_pipeline()
 
-        return "Training Completed."
+        return "<h1>Training Completed</h1><a href='/predict'>Predict</a>"
 
     except Exception as e:
         raise CustomException(e,sys)
