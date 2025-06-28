@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return "<h1>home</h1> <a href='/train'>Train</a> <br> <a href='/predict'>Predict</a>"
+    return "<h1>Wafer Fault Detection </h1><p>First train the model</p> <a href='/train'>Train</a> <br> <a href='/predict'>Predict</a><br> <a href='/download'>Download sample test file for prediction</a>"
 
 
 @app.route("/train")
@@ -19,7 +19,7 @@ def train_route():
         train_pipeline = TraininingPipeline()
         train_pipeline.run_pipeline()
 
-        return "<h1>Training Completed</h1><a href='/predict'>Predict</a>"
+        return "<h1>Training Completed</h1><a href='/predict'>Predict</a><br> <a href='/download'>Download sample test file for prediction</a>"
 
     except Exception as e:
         raise CustomException(e,sys)
@@ -45,7 +45,9 @@ def upload():
     except Exception as e:
         raise CustomException(e,sys)
     
-
+@app.route('/download')
+def download_file():
+    return send_file('prediction_test_file/test.csv', as_attachment=True)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug= True)
